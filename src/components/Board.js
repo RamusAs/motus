@@ -6,7 +6,7 @@ export const Board = () => {
   const {
     wordList,
     isGameOver,
-    tempUserSOlution,
+    tempUserSolution,
     grid,
     rowIndex,
     isSubmitted,
@@ -16,11 +16,13 @@ export const Board = () => {
   const [message, setMessage] = useState("")
 
   useEffect(() => {
-    const isWordInList = wordList.includes(tempUserSOlution)
+    const isWordInList = wordList.includes(tempUserSolution)
+    
+    const normalizeSolution = solution.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 
     if (!isWordInList && isSubmitted) {
       setMessage(
-        tempUserSOlution.length !== solution.length
+        tempUserSolution.length !== normalizeSolution.length
           ? "Not enough letters"
           : "word is not in list"
       )
@@ -32,14 +34,14 @@ export const Board = () => {
       temp[rowIndex - 1] = grid[rowIndex - 1].map(
         (col, index) => {
           let className = "gray"
-          const letterIndex = solution.indexOf(col)
+          const letterIndex = normalizeSolution.indexOf(col)
 
-          if (letterIndex === index || solution[index] === col)
+          if (letterIndex === index || normalizeSolution[index] === col)
             className = "green"
           if (
             letterIndex !== index &&
             letterIndex > -1 &&
-            solution[index] !== col
+            normalizeSolution[index] !== col
           ) {
             className = "yellow"
           }
@@ -53,7 +55,7 @@ export const Board = () => {
     }
 
     if (isGameOver) {
-      setMessage("Game is over: " + solution)
+      setMessage("Game Over: " + normalizeSolution)
       return
     } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, isGameOver])
@@ -77,7 +79,7 @@ export const Board = () => {
 
       {message && <pre>{message}</pre>}
 
-      <div>{JSON.stringify(state.score)}</div>
+      <div>Success: {state.score.success}, Fail: {state.score.fail}, Games N°: {state.score.nbGames}</div>
     </div>
   )
 }

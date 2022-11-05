@@ -3,12 +3,13 @@ import { Wordle } from "./components"
 import { WORD } from "./constant"
 
 function App() {
-  const solution = WORD[Math.floor(Math.random() * WORD.length)]
+  const wordList = WORD.filter(_ => _.length <= 7 )
+  const solution = wordList[Math.floor(Math.random() * wordList.length)]
   return (
     <Wordle
-      wordList={WORD}
+      wordList={wordList}
       solution={solution}
-      nbRows={solution.length <= 5 ? 5 : 7}
+      nbRows={6}
       nbCols={solution.length}
     />
   )
