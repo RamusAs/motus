@@ -11,7 +11,7 @@ export const Wordle = ({ wordList, solution, nbRows, nbCols }) => {
   }
 
   return <WordleStore wordList={wordList} solution={solution} nbRows={nbRows} nbCols={nbCols}>
-    <h1 className="center">Wordle</h1>
+    <h1 className="center">WORDUS</h1>
 
     <Board />
 

@@ -13,13 +13,18 @@ export const Board = () => {
     solution,
   } = state
   const [drawGrid, setDrawGrid] = useState(grid)
+  const [finedLetters, setFinedLetters] = useState([])
   const [message, setMessage] = useState("")
 
+  console.log(finedLetters)
   useEffect(() => {
     const isWordInList = wordList.includes(tempUserSolution)
-    
-    const normalizeSolution = solution.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    console.log(normalizeSolution, tempUserSolution);
+
+    const normalizeSolution = solution
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+
+    console.log(normalizeSolution, tempUserSolution)
 
     if (!isWordInList && isSubmitted) {
       setMessage(
@@ -32,24 +37,27 @@ export const Board = () => {
     if (isSubmitted && isWordInList) {
       const temp = drawGrid.slice(0)
 
-      temp[rowIndex - 1] = grid[rowIndex - 1].map(
-        (col, index) => {
-          let className = "gray"
-          const letterIndex = normalizeSolution.indexOf(col)
+      temp[rowIndex - 1] = grid[rowIndex - 1].map((col, index) => {
+        let className = "gray"
+        const letterIndex = normalizeSolution.indexOf(col)
 
-          if (letterIndex === index || normalizeSolution[index] === col)
-            className = "green"
-          if (
-            letterIndex !== index &&
-            letterIndex > -1 &&
-            normalizeSolution[index] !== col
-          ) {
-            className = "yellow"
-          }
-
-          return className + " flip"
+        if (letterIndex === index || normalizeSolution[index] === col) {
+          className = "green"
+          setFinedLetters((finedLetters) => [
+            ...finedLetters,
+            tempUserSolution[index],
+          ])
         }
-      )
+        if (
+          letterIndex !== index &&
+          letterIndex > -1 &&
+          normalizeSolution[index] !== col
+        ) {
+          className = "yellow"
+        }
+
+        return className + " flip"
+      })
 
       setDrawGrid(temp)
       setMessage("")
@@ -80,7 +88,10 @@ export const Board = () => {
 
       {message && <pre>{message}</pre>}
 
-      <div>Success: {state.score.success}, Fail: {state.score.fail}, Games N°: {state.score.nbGames}</div>
+      <div>
+        Success: {state.score.success}, Fail: {state.score.fail}, Games N°:{" "}
+        {state.score.nbGames}
+      </div>
     </div>
   )
 }

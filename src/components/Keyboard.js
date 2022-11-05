@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect } from "react"
 import WordleContext from "./WordleContext"
 
 const topRow = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
-const middleRow = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
+const middleRow = ["A", "S", "D", "F", "G", "H", "J", "K", "L","-"]
 const bottomRow = ["Z", "X", "C", "V", "B", "N", "M", "←", "Enter"]
 
 export const Keyboard = () => {
@@ -99,7 +99,7 @@ export const Keyboard = () => {
       if ((key === "Enter" || key === "enter"))
         handleEnter()
       if (key === "Backspace" || key === "←") handleBackspace()
-      if (key.length === 1 && /[a-z]/gi.test(key)) handleAlpha(key)
+      if (key.length === 1 && /[a-z|-]/gi.test(key)) handleAlpha(key)
     }
   }
 
