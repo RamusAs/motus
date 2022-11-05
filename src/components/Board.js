@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import WordleContext from "./WordleContext"
 
 export const Board = () => {
-  const { state, setState } = useContext(WordleContext)
+  const { state } = useContext(WordleContext)
   const {
     wordList,
     isGameOver,
@@ -55,7 +55,7 @@ export const Board = () => {
     if (isGameOver) {
       setMessage("Game is over: " + solution)
       return
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, isGameOver])
 
   return (
