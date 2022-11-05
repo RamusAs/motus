@@ -18,7 +18,7 @@ const initState = {
 
   solution: '',
   userSolution: '',
-  tempUserSOlution: '',
+  tempUserSolution: '',
 
   grid,
   isSubmitted: false,

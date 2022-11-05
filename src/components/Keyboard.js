@@ -7,8 +7,7 @@ const bottomRow = ["Z", "X", "C", "V", "B", "N", "M", "←", "Enter"]
 
 export const Keyboard = () => {
   const { state, setState } = useContext(WordleContext)
-  const { wordList, nbRows, grid, isGameOver, userSolution } = state
-  
+  const { wordList, nbRows, grid, isGameOver } = state
   const handleEnter = () => {
     setState((old) => {
       const isWordInList = wordList.includes(grid[old.rowIndex].join(""))
@@ -31,7 +30,7 @@ export const Keyboard = () => {
         rowIndex: isWordInList ? old.rowIndex + 1 : old.rowIndex,
         colIndex: isWordInList ? 0 : old.colIndex,
         userSolution: isWordInList ? "" : old.userSolution,
-        tempUserSOlution: old.userSolution,
+        tempUserSolution: old.userSolution,
         isSubmitted: true,
         isGameOver,
         score,
@@ -97,7 +96,7 @@ export const Keyboard = () => {
     if (!isGameOver) {
       const key = typeof e === "object" ? e.key : e
 
-      if ((key === "Enter" || key === "enter") && userSolution.length)
+      if ((key === "Enter" || key === "enter"))
         handleEnter()
       if (key === "Backspace" || key === "←") handleBackspace()
       if (key.length === 1 && /[a-z]/gi.test(key)) handleAlpha(key)

@@ -19,6 +19,7 @@ export const Board = () => {
     const isWordInList = wordList.includes(tempUserSolution)
     
     const normalizeSolution = solution.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    console.log(normalizeSolution, tempUserSolution);
 
     if (!isWordInList && isSubmitted) {
       setMessage(
