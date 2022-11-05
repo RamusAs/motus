@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import { Wordle } from "./components"
+import { WORD } from "./constant"
 
 function App() {
+  const solution = WORD[Math.floor(Math.random() * WORD.length)]
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Wordle
+      wordList={WORD}
+      solution={solution}
+      nbRows={solution.length <= 5 ? 5 : 7}
+      nbCols={solution.length}
+    />
+  )
 }
 
-export default App;
+export default App
