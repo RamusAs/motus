@@ -1,5 +1,7 @@
 export * from "./Board"
 export * from "./Keyboard"
+export * from "./Modal"
+export * from "./Rules"
 export * from "./Wordle"
 export * from "./WordleContext"
 export * from "./WordleStore"
