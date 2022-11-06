@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Modal } from "./Modal"
 import "../styles/Modal.css"
 
-export const Rules = ({}) => {
+export const Rules = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <div className="rules">
