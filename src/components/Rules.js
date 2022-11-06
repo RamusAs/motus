@@ -11,7 +11,7 @@ export const Rules = () => {
       </button>
       {isOpen && (
         <Modal
-          tilte="Rules"
+          tilte="Règles"
           content={
             <>
               <strong>

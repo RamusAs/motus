@@ -19,7 +19,7 @@ export const Modal = ({ content,tilte, setIsOpen }) => {
             <div className="modalActions">
               <div className="actionsContainer">
                 <button className="deleteBtn" onClick={() => setIsOpen(false)}>
-                  Then I know
+                  Allons jouer !
                 </button>
               </div>
             </div>
