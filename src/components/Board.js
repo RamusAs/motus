@@ -11,18 +11,25 @@ export const Board = () => {
     rowIndex,
     isSubmitted,
     solution,
+    score,
   } = state
+
   const [drawGrid, setDrawGrid] = useState(grid)
-  const [finedLetters, setFinedLetters] = useState([])
-  const [message, setMessage] = useState("")
+
+  const normalizeSolution = solution
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+
+  const [finedLetters, setFinedLetters] = useState(
+    normalizeSolution.split("").map((el) => ({ letter: el, fined: false }))
+  )
 
   console.log(finedLetters)
+
+  const [message, setMessage] = useState("")
+
   useEffect(() => {
     const isWordInList = wordList.includes(tempUserSolution)
-
-    const normalizeSolution = solution
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
 
     console.log(normalizeSolution, tempUserSolution)
 
@@ -37,21 +44,28 @@ export const Board = () => {
     if (isSubmitted && isWordInList) {
       const temp = drawGrid.slice(0)
 
+      grid[rowIndex - 1].forEach((col, index) => {
+        if (finedLetters[index].letter === col) {
+          setFinedLetters((finedLetters) =>
+            finedLetters.map((el) =>
+              el.letter === col ? { ...el, fined: true } : el
+            )
+          )
+        }
+      })
+
       temp[rowIndex - 1] = grid[rowIndex - 1].map((col, index) => {
         let className = "gray"
         const letterIndex = normalizeSolution.indexOf(col)
 
-        if (letterIndex === index || normalizeSolution[index] === col) {
+        if (finedLetters[index].letter === col) {
           className = "green"
-          setFinedLetters((finedLetters) => [
-            ...finedLetters,
-            tempUserSolution[index],
-          ])
         }
         if (
-          letterIndex !== index &&
           letterIndex > -1 &&
-          normalizeSolution[index] !== col
+          finedLetters[index].letter !== col &&
+          !finedLetters[index].fined &&
+          finedLetters.filter((el) => !el.fined).some((el) => el.letter === col)
         ) {
           className = "yellow"
         }
@@ -72,10 +86,10 @@ export const Board = () => {
   return (
     <div className="center">
       <ul>
-        {drawGrid.map((row, i) => (
-          <li className="d-flex" key={i}>
+        {drawGrid.map((row, key) => (
+          <li className="d-flex" key={key}>
             {row.map((col, index) => {
-              const letter = grid[i][index]
+              const letter = grid[key][index]
               return (
                 <span className={"cell " + col} key={index + "-cell"}>
                   {isNaN(letter) ? letter : ""}
@@ -89,8 +103,7 @@ export const Board = () => {
       {message && <pre>{message}</pre>}
 
       <div>
-        Success: {state.score.success}, Fail: {state.score.fail}, Games N°:{" "}
-        {state.score.nbGames}
+        Success: {score.success}, Fail: {score.fail}, Games N°: {score.nbGames}
       </div>
     </div>
   )
