@@ -29,12 +29,6 @@
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
 }
 
-@media (width < 500 ) {
-  .modal {
-    padding: 10px;
-  }
-}
-
 .modalHeader {
   height: 50px;
   background: white;
@@ -147,4 +141,12 @@
 
 .primaryBtn:hover {
   transform: translateY(-5px);
+}
+
+/* responsive */
+
+@media screen and (max-width: 600px) {
+  .modal {
+    padding: 0;
+  }
 }

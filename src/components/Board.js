@@ -24,14 +24,10 @@ export const Board = () => {
     normalizeSolution.split("").map((el) => ({ letter: el, fined: false }))
   )
 
-  console.log(finedLetters)
-
   const [message, setMessage] = useState("")
 
   useEffect(() => {
     const isWordInList = wordList.includes(tempUserSolution)
-
-    console.log(normalizeSolution, tempUserSolution)
 
     if (!isWordInList && isSubmitted) {
       setMessage(
@@ -99,7 +95,6 @@ export const Board = () => {
           </li>
         ))}
       </ul>
-
       {message && <pre>{message}</pre>}
 
       <div>

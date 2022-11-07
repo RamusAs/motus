@@ -164,3 +164,14 @@ pre {
     opacity: 1;
   }
 }
+
+/* responsive */
+
+@media screen and (max-width: 600px) {
+  .cell {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
