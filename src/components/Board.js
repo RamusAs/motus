@@ -40,7 +40,7 @@ export const Board = () => {
     if (isSubmitted && isWordInList) {
       const temp = drawGrid.slice(0)
 
-      grid[rowIndex - 1].forEach((col, index) => {
+      grid[rowIndex - 1].forEach((col, index) => { 
         if (finedLetters[index].letter === col) {
           setFinedLetters((finedLetters) =>
             finedLetters.map((el) =>
@@ -59,7 +59,7 @@ export const Board = () => {
         }
         if (
           letterIndex > -1 &&
-          finedLetters[index].letter !== col &&
+          normalizeSolution[index] !== col &&
           !finedLetters[index].fined &&
           finedLetters.filter((el) => !el.fined).some((el) => el.letter === col)
         ) {
