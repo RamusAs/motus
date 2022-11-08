@@ -28,19 +28,17 @@ export const Board = () => {
 
   useEffect(() => {
     const isWordInList = wordList.includes(tempUserSolution)
+    const enoughLetters = tempUserSolution.length === normalizeSolution.length
 
-    if (!isWordInList && isSubmitted) {
-      setMessage(
-        tempUserSolution.length !== normalizeSolution.length
-          ? "Not enough letters"
-          : "word is not in list"
-      )
+    if (isSubmitted) {
+      !isWordInList && setMessage("word is not in dictionnary") 
+      !enoughLetters && setMessage("Not enough letters") 
     }
 
-    if (isSubmitted && isWordInList) {
+    if (isSubmitted && isWordInList && enoughLetters) {
       const temp = drawGrid.slice(0)
 
-      grid[rowIndex - 1].forEach((col, index) => { 
+      grid[rowIndex - 1].forEach((col, index) => {
         if (finedLetters[index].letter === col) {
           setFinedLetters((finedLetters) =>
             finedLetters.map((el) =>
@@ -59,7 +57,7 @@ export const Board = () => {
         }
         if (
           letterIndex > -1 &&
-          normalizeSolution[index] !== col &&
+          finedLetters[index].letter !== col &&
           !finedLetters[index].fined &&
           finedLetters.filter((el) => !el.fined).some((el) => el.letter === col)
         ) {
